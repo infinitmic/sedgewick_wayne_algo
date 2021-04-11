@@ -74,7 +74,7 @@ public class Graph implements GraphInterface {
             for(int neighbour : adjacent(vertex)) {
                 stringBuilder.append(neighbour).append(" ");
             }
-            stringBuilder.append("\n")
+            stringBuilder.append("\n");
         }
 
         return stringBuilder.toString();

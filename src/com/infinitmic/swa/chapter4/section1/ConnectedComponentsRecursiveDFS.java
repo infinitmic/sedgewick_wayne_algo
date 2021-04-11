@@ -1,22 +1,21 @@
 package com.infinitmic.swa.chapter4.section1;
 
-import edu.princeton.cs.algs4.Stack;
-
 import java.util.Iterator;
+import java.util.Stack;
 
 @SuppressWarnings("unchecked")
-public class ConnectedComponentsIterativeDFS implements ConnectedComponents {
+public class ConnectedComponentsRecursiveDFS implements ConnectedComponents{
 
     private boolean[] visited;
     private int[] id;
     private int count;
 
-    public ConnectedComponentsIterativeDFS(Graph graph) {
+    public ConnectedComponentsRecursiveDFS(Graph graph) {
         visited = new boolean[graph.vertices()];
         id = new int[graph.vertices()];
 
-        for(int source = 0; source < graph.vertices(); source++) {
-            if (!visited[source]) {
+        for (int source = 0; source < graph.vertices(); source++) {
+            if(!visited[source]) {
                 depthFirstSearchIterative(graph, source);
                 count++;
             }
@@ -29,8 +28,9 @@ public class ConnectedComponentsIterativeDFS implements ConnectedComponents {
         visited[sourceVertex] = true;
         id[sourceVertex] = count;
 
-        // Used to be able to iterate over each adjacency list, keeping track of which
-        // vertex in each adjacency list needs to be explored next
+        // Used to be able to iterate over each dependency list, keeping track of which
+        // vertex in ech adjacent list needs to be explored next
+
         Iterator<Integer>[] adjacentIterators = (Iterator<Integer>[]) new Iterator[graph.vertices()];
 
         for(int vertexId = 0; vertexId < adjacentIterators.length; vertexId++) {
@@ -39,14 +39,14 @@ public class ConnectedComponentsIterativeDFS implements ConnectedComponents {
             }
         }
 
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             int currentVertex = stack.peek();
 
             if(adjacentIterators[currentVertex].hasNext()) {
                 int neighbour = adjacentIterators[currentVertex].next();
 
-                if(!visited[neighbour]) {
-                    stack.push((neighbour));
+                if(!visited[neighbour]){
+                    stack.push(neighbour);
                     visited[neighbour] = true;
                     id[neighbour] = count;
                 }
@@ -61,10 +61,12 @@ public class ConnectedComponentsIterativeDFS implements ConnectedComponents {
         return id[vertex1] == id[vertex2];
     }
 
+    @Override
     public int id(int vertex) {
         return id[vertex];
     }
 
+    @Override
     public int count() {
         return count;
     }
