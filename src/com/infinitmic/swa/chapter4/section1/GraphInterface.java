@@ -1,4 +1,4 @@
-package com.infinitmic.swa.chapter4;
+package com.infinitmic.swa.chapter4.section1;
 
 public interface GraphInterface {
     int vertices();
